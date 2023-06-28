@@ -16,9 +16,12 @@ def simulate_euro_coins():
         num_countries = int(input())
         if num_countries == 0:
             break
+        if num_countries < 0:
+            logger.error(f"Countries number can't be negative")
+            exit(1)
         if num_countries > MAX_COUNTRIES:
             logger.error(f"To many countries, maximum countries number is {MAX_COUNTRIES}")
-            break
+            exit(1)
 
         max_x = 0
         max_y = 0
@@ -27,6 +30,9 @@ def simulate_euro_coins():
             country_info = input().split()
             country_name = country_info[0]
             xl, yl, xh, yh = map(lambda z: int(z) - 1, country_info[1:])
+            if xl < 0 or yl < 0 or xh < 0 or yh < 0:
+                logger.error(f"Coordinates shouldn't be negative")
+                exit(1)
             max_x = max(max_x, xh + 1)
             max_y = max(max_y, yh + 1)
             countries.append((country_name, xl, yl, xh, yh))
