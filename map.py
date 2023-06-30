@@ -47,16 +47,17 @@ class Map():
             if not country.is_complete:
                 all_complete = False
         return all_complete
+    
+    def transfer_between_cities(self, city_from_x, city_from_y, city_to_x, city_to_y):
+        if self.grid[city_from_y][city_from_x] is not None:
+            if city_to_y >= 0 and city_to_y < self.height \
+            and city_to_x >= 0 and city_to_x < self.width:
+                self.grid[city_from_y][city_from_x].transfer(self.grid[city_to_y][city_to_x])
 
     def run_transfer(self):
         for y in range(self.height):
             for x in range(self.width):
-                if self.grid[y][x] is not None:
-                    if y - 1 >= 0:
-                        self.grid[y][x].transfer(self.grid[y-1][x])
-                    if y + 1 < self.height:
-                        self.grid[y][x].transfer(self.grid[y+1][x])
-                    if x - 1 >= 0:
-                        self.grid[y][x].transfer(self.grid[y][x-1])
-                    if x + 1 < self.width:
-                        self.grid[y][x].transfer(self.grid[y][x+1])
+                self.transfer_between_cities(x, y, x, y-1)
+                self.transfer_between_cities(x, y, x, y+1)
+                self.transfer_between_cities(x, y, x-1, y)
+                self.transfer_between_cities(x, y, x+1, y)

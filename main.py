@@ -42,6 +42,8 @@ def simulate_euro_coins():
 
         country_completion_times =  eu_map.run_diffusion()
 
+        country_completion_times.sort(key=lambda item: item.name)
+
         print(f"Case Number {case_number}")
         for country in country_completion_times:
             print(f"{country.color}{country.name} {country.days_to_complete}{END_COLOR}")

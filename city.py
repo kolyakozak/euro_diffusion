@@ -24,7 +24,4 @@ class City():
             self.motif[country] -= amount_to_transfer
     
     def is_complete(self, countries_list):
-        if set(self.motif.keys()) == set(countries_list):
-            return True
-        else:
-            return False
+        return set(self.motif.keys()) == set(countries_list)
